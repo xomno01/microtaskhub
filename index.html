@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MicroTask Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // --- WEB3 WALLET SHIM ---
+      // This script simulates a Web3 wallet like MetaMask for development purposes.
+      window.ethereum = {
+        isMetaMask: true,
+        request: async ({ method, params }) => {
+          console.log(`[Web3 Shim] Received request: ${method}`, params);
+          if (method === 'eth_requestAccounts' || method === 'eth_accounts') {
+            // Return a list of mock accounts
+            return ['0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266', '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'];
+          }
+          if (method === 'eth_chainId') {
+            // Return Sepolia Testnet Chain ID
+            return '0xaa36a7'; 
+          }
+          throw new Error(`[Web3 Shim] Method ${method} not implemented.`);
+        },
+        on: (event, handler) => {
+          console.log(`[Web3 Shim] Registered listener for: ${event}`);
+        },
+        removeListener: (event, handler) => {
+           console.log(`[Web3 Shim] Removed listener for: ${event}`);
+        }
+      };
+      // --- END SHIM ---
+
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-bg': '#FDFBF8',
+              'brand-surface': '#FFFFFF',
+              'brand-primary': '#C8A47E',
+              'brand-primary-dark': '#AF8F6D',
+              'brand-secondary': '#6B7280',
+              'brand-text': '#374151',
+              'brand-accent': '#85A398',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            keyframes: {
+              'fade-in-up': {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+               'slide-in-left': {
+                '0%': { transform: 'translateX(100%)' },
+                '100%': { transform: 'translateX(0)' },
+              },
+              'fade-in': {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              }
+            },
+            animation: {
+              'fade-in-up': 'fade-in-up 0.3s ease-out forwards',
+              'slide-in-left': 'slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+              'fade-in': 'fade-in 0.3s ease-out forwards',
+            }
+          },
+        },
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.16.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-brand-bg text-brand-text">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
