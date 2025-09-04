@@ -1,3 +1,3 @@
-// FIX: The reference to "vite/client" was causing a type resolution error.
-// It is removed as the types are no longer necessary after switching from
-// `import.meta.env` to `process.env` for environment variables.
+// FIX: Commented out the reference to "vite/client" to resolve a type definition error.
+// This is safe because the application code no longer uses `import.meta.env` after the fix in `geminiService.ts`.
+// /// <reference types="vite/client" />

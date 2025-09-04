@@ -1,8 +1,9 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import type { GeneratedTaskIdea, Task, SubmissionProof } from "../types";
 import { TaskType, ProofType } from "../types";
 
-// FIX: Use process.env.API_KEY as required by the guidelines. This avoids Vite-specific `import.meta.env` which was causing a TypeScript error.
+// Ensure the API key is available from environment variables
 const apiKey = process.env.API_KEY;
 if (!apiKey) {
     throw new Error("API_KEY environment variable not set.");
@@ -29,6 +30,7 @@ const responseSchema = {
             },
             proofType: {
                  type: Type.STRING,
+// FIX: Using Object.values(ProofType) to dynamically get enum values.
                  enum: Object.values(ProofType),
                  description: "The type of proof required from the user."
             },
