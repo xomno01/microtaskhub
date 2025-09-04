@@ -2,9 +2,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import type { GeneratedTaskIdea, Task, SubmissionProof } from "../types";
 import { TaskType, ProofType } from "../types";
 
-// FIX: Per coding guidelines, the API key must be read from process.env.API_KEY.
-// This also resolves the TypeScript error 'Property 'env' does not exist on type 'ImportMeta''.
-// Ensure the API key is available from environment variables
+// FIX: Use process.env.API_KEY as required by the guidelines. This avoids Vite-specific `import.meta.env` which was causing a TypeScript error.
 const apiKey = process.env.API_KEY;
 if (!apiKey) {
     throw new Error("API_KEY environment variable not set.");
